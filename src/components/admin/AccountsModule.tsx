@@ -59,15 +59,20 @@ export function AccountsModule({
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">Manajemen Akun & Hak Akses</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#D92B22]">
+            Kontrol Akses Berbasis Peran
+          </span>
+          <h1 className="text-2xl font-extrabold text-[#111827] tracking-tight mt-0.5">
+            Manajemen <span className="text-[#D92B22]">Akun &amp; Hak Akses</span>
+          </h1>
+          <p className="text-xs text-slate-500 mt-1">
             Kelola akun Pemilik/Manajer dan akses Portal Mandiri Penghuni dengan isolasi peran ketat
           </p>
         </div>
         <button
           type="button"
           onClick={() => setCreateOpen(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-sm"
         >
           <Plus className="w-4 h-4" />
           <span>Buat Akun Baru</span>
@@ -75,26 +80,26 @@ export function AccountsModule({
       </div>
 
       {/* Accounts Table */}
-      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+      <div className="bg-white border border-[#EFE7E2] rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-semibold text-slate-500">
+              <tr className="border-b border-[#EFE7E2] bg-[#FDF6F0]/70 text-[11px] font-semibold text-slate-600">
                 <th className="py-3 px-4">Nama Pengguna</th>
                 <th className="py-3 px-4">Username</th>
-                <th className="py-3 px-4">Peran & Ruang Lingkup</th>
+                <th className="py-3 px-4">Peran &amp; Ruang Lingkup</th>
                 <th className="py-3 px-4">Kontak</th>
                 <th className="py-3 px-4">Login Terakhir</th>
                 <th className="py-3 px-4">Status</th>
                 <th className="py-3 px-4 text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-xs">
+            <tbody className="divide-y divide-[#F3EAE5] text-xs">
               {accounts.map((acc) => {
                 const isSelf = acc.id === currentUserId;
                 return (
-                  <tr key={acc.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3.5 px-4 font-semibold text-slate-900 whitespace-nowrap">
+                  <tr key={acc.id} className="hover:bg-[#FDF6F0]/40 transition-colors">
+                    <td className="py-3.5 px-4 font-bold text-[#111827] whitespace-nowrap">
                       {acc.fullName}
                       {isSelf && <span className="text-slate-400 font-normal ml-1.5">(Anda)</span>}
                     </td>
@@ -102,7 +107,7 @@ export function AccountsModule({
                     <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="inline-flex items-center gap-1.5 font-medium text-slate-800">
                         {acc.role === 'admin' ? (
-                          <Shield className="w-3.5 h-3.5 text-blue-700" />
+                          <Shield className="w-3.5 h-3.5 text-[#D92B22]" />
                         ) : (
                           <UserCheck className="w-3.5 h-3.5 text-emerald-700" />
                         )}
@@ -246,17 +251,17 @@ export function AccountsModule({
             />
           </div>
 
-          <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+          <div className="pt-3 border-t border-[#F3EAE5] flex items-center justify-end gap-2.5">
             <button
               type="button"
               onClick={() => setCreateOpen(false)}
-              className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg cursor-pointer"
+              className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-[#E5DDD8] hover:bg-slate-50 rounded-full cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg cursor-pointer"
+              className="px-5 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full cursor-pointer"
             >
               Simpan Akun
             </button>

@@ -169,8 +169,13 @@ export function ReportsModule({
       {/* Screen Header & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 no-print">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">Laporan Lengkap Keuangan & Hunian</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#D92B22]">
+            Pelaporan &amp; Analitik Keuangan
+          </span>
+          <h1 className="text-2xl font-extrabold text-[#111827] tracking-tight mt-0.5">
+            Laporan Lengkap <span className="text-[#D92B22]">Keuangan &amp; Hunian</span>
+          </h1>
+          <p className="text-xs text-slate-500 mt-1">
             Rekapitulasi kas masuk, piutang sewa, biaya perawatan, dan tingkat hunian per lokasi properti
           </p>
         </div>
@@ -178,7 +183,7 @@ export function ReportsModule({
           <button
             type="button"
             onClick={handleDownloadCSV}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-[#D92B22] bg-white border border-[#D92B22]/35 hover:bg-[#FEF2F0] rounded-full transition-colors whitespace-nowrap shrink-0 cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>Unduh CSV / Excel</span>
@@ -186,7 +191,7 @@ export function ReportsModule({
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#0F172A] hover:bg-slate-800 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-sm"
           >
             <Printer className="w-4 h-4" />
             <span>Cetak Laporan</span>
@@ -195,7 +200,7 @@ export function ReportsModule({
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white border border-slate-200 rounded-xl p-4 flex flex-wrap items-center gap-3 no-print">
+      <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4 flex flex-wrap items-center gap-3 no-print">
         <div className="flex items-center gap-2">
           <label htmlFor="rep-period" className="text-xs font-semibold text-slate-600">
             Periode:
@@ -204,7 +209,7 @@ export function ReportsModule({
             id="rep-period"
             value={periodFilter}
             onChange={(e) => setPeriodFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-lg"
+            className="px-3 py-1.5 text-xs font-medium text-[#111827] bg-white border border-[#E5DDD8] rounded-xl"
           >
             <option value="ALL">Semua Periode</option>
             {periods.map(([key, label]) => (
@@ -222,7 +227,7 @@ export function ReportsModule({
             id="rep-prop"
             value={propertyFilter}
             onChange={(e) => setPropertyFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-lg"
+            className="px-3 py-1.5 text-xs font-medium text-[#111827] bg-white border border-[#E5DDD8] rounded-xl"
           >
             <option value="ALL">Seluruh Portofolio</option>
             {properties.map((p) => (
@@ -236,43 +241,43 @@ export function ReportsModule({
 
       {/* Executive Summary Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 print-break-inside-avoid">
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <span className="text-xs text-slate-500">Kas Masuk Sewa (Lunas)</span>
-          <div className="text-xl font-bold font-mono text-emerald-700 tabular-nums mt-1.5">
+        <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4">
+          <span className="text-xs font-semibold text-slate-500">Kas Masuk Sewa (Lunas)</span>
+          <div className="text-xl font-extrabold font-mono text-emerald-700 tabular-nums mt-1.5">
             {formatIDR(totals.cashIn)}
           </div>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <span className="text-xs text-slate-500">Piutang Sewa Tertunda</span>
-          <div className="text-xl font-bold font-mono text-amber-700 tabular-nums mt-1.5">
+        <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4">
+          <span className="text-xs font-semibold text-slate-500">Piutang Sewa Tertunda</span>
+          <div className="text-xl font-extrabold font-mono text-[#EA580C] tabular-nums mt-1.5">
             {formatIDR(totals.receivables)}
           </div>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <span className="text-xs text-slate-500">Beban Perawatan Unit</span>
-          <div className="text-xl font-bold font-mono text-slate-800 tabular-nums mt-1.5">
+        <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4">
+          <span className="text-xs font-semibold text-slate-500">Beban Perawatan Unit</span>
+          <div className="text-xl font-extrabold font-mono text-[#111827] tabular-nums mt-1.5">
             {formatIDR(totals.maintenanceExpense)}
           </div>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <span className="text-xs text-slate-500">Pendapatan Bersih (NOI)</span>
-          <div className="text-xl font-bold font-mono text-[#1D4ED8] tabular-nums mt-1.5">
+        <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4">
+          <span className="text-xs font-semibold text-slate-500">Pendapatan Bersih (NOI)</span>
+          <div className="text-xl font-extrabold font-mono text-[#D92B22] tabular-nums mt-1.5">
             {formatIDR(totals.netOperatingIncome)}
           </div>
         </div>
       </div>
 
       {/* Per-Property Performance Table */}
-      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden print-break-inside-avoid">
-        <div className="px-6 py-4 border-b border-slate-200">
-          <h2 className="text-sm font-semibold text-slate-900">
+      <div className="bg-white border border-[#EFE7E2] rounded-2xl overflow-hidden print-break-inside-avoid">
+        <div className="px-6 py-4 border-b border-[#EFE7E2]">
+          <h2 className="text-sm font-bold text-[#111827]">
             Ringkasan Kinerja per Properti · {selectedPeriodLabel}
           </h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-semibold text-slate-500">
+              <tr className="border-b border-[#EFE7E2] bg-[#FDF6F0]/70 text-[11px] font-semibold text-slate-600">
                 <th className="py-3 px-4">Lokasi Properti</th>
                 <th className="py-3 px-4 text-right">Hunian</th>
                 <th className="py-3 px-4 text-right">Okupansi</th>
@@ -328,7 +333,7 @@ export function ReportsModule({
                 <td className="py-3.5 px-4 text-right font-mono tabular-nums">
                   {formatIDR(totals.maintenanceExpense)}
                 </td>
-                <td className="py-3.5 px-4 text-right font-mono tabular-nums text-[#1D4ED8]">
+                <td className="py-3.5 px-4 text-right font-mono tabular-nums text-[#D92B22]">
                   {formatIDR(totals.netOperatingIncome)}
                 </td>
               </tr>
@@ -338,9 +343,9 @@ export function ReportsModule({
       </div>
 
       {/* Detailed Ledger Table */}
-      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-slate-900">
+      <div className="bg-white border border-[#EFE7E2] rounded-2xl overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#EFE7E2] flex items-center justify-between">
+          <h2 className="text-sm font-bold text-[#111827]">
             Rincian Buku Kas Tagihan ({scopedInvoices.length} transaksi)
           </h2>
           <span className="text-xs text-slate-500">{selectedPeriodLabel}</span>
@@ -348,7 +353,7 @@ export function ReportsModule({
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-semibold text-slate-500">
+              <tr className="border-b border-[#EFE7E2] bg-[#FDF6F0]/70 text-[11px] font-semibold text-slate-600">
                 <th className="py-2.5 px-4">Invoice</th>
                 <th className="py-2.5 px-4">Properti & Unit</th>
                 <th className="py-2.5 px-4">Penyewa</th>

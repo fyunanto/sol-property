@@ -522,13 +522,13 @@ export default function App() {
   };
 
   const renderSidebarNav = (isMobile = false) => (
-    <div className="flex flex-col h-full bg-[#0F172A] text-slate-200">
-      <div className="px-5 py-5 border-b border-slate-800 flex items-center justify-between">
+    <div className="flex flex-col h-full bg-white text-[#111827]">
+      <div className="px-5 py-5 border-b border-[#EFE7E2] flex items-center justify-between bg-[#FDF6F0]/60">
         <div>
-          <span className="text-[11px] font-semibold text-blue-400 tracking-wide block">
+          <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#D92B22] block">
             {isAdmin ? 'Admin Control Center' : 'Portal Mandiri Penghuni'}
           </span>
-          <span className="text-sm font-bold text-white mt-0.5 block">
+          <span className="text-sm font-extrabold text-[#111827] mt-0.5 block">
             {isAdmin ? 'Operasional Properti' : `Kamar ${loggedInTenantRoom?.roomNumber ?? '-'}`}
           </span>
         </div>
@@ -536,7 +536,7 @@ export default function App() {
           <button
             type="button"
             onClick={() => setMobileNavOpen(false)}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg"
+            className="p-1.5 text-slate-500 hover:text-[#D92B22] rounded-lg"
             aria-label="Tutup menu"
           >
             <X className="w-5 h-5" />
@@ -565,20 +565,20 @@ export default function App() {
                     if (item.id === 'rooms') setRoomsInitialPropFilter('ALL');
                     setMobileNavOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                  className={`w-full flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
                     active
-                      ? 'bg-[#2563EB] text-white font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
+                      ? 'bg-[#FEF2F0] text-[#D92B22] font-bold'
+                      : 'text-slate-600 hover:bg-[#FAF8F6] hover:text-[#111827]'
                   }`}
                 >
                   <span className="flex items-center gap-3 truncate">
-                    <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-white' : 'text-slate-400'}`} />
+                    <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-[#D92B22]' : 'text-slate-400'}`} />
                     <span className="truncate">{item.label}</span>
                   </span>
                   {count > 0 && (
                     <span
-                      className={`font-mono text-[11px] tabular-nums shrink-0 ${
-                        active ? 'text-blue-100' : 'text-amber-400'
+                      className={`font-mono text-[11px] font-bold tabular-nums shrink-0 ${
+                        active ? 'text-[#D92B22]' : 'text-[#EA580C]'
                       }`}
                     >
                       {count}
@@ -600,20 +600,20 @@ export default function App() {
                     setTenantTab(item.id);
                     setMobileNavOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                  className={`w-full flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
                     active
-                      ? 'bg-[#2563EB] text-white font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
+                      ? 'bg-[#FEF2F0] text-[#D92B22] font-bold'
+                      : 'text-slate-600 hover:bg-[#FAF8F6] hover:text-[#111827]'
                   }`}
                 >
                   <span className="flex items-center gap-3 truncate">
-                    <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-white' : 'text-slate-400'}`} />
+                    <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-[#D92B22]' : 'text-slate-400'}`} />
                     <span className="truncate">{item.label}</span>
                   </span>
                   {count > 0 && (
                     <span
-                      className={`font-mono text-[11px] tabular-nums shrink-0 ${
-                        active ? 'text-blue-100' : 'text-amber-400'
+                      className={`font-mono text-[11px] font-bold tabular-nums shrink-0 ${
+                        active ? 'text-[#D92B22]' : 'text-[#EA580C]'
                       }`}
                     >
                       {count}
@@ -625,16 +625,16 @@ export default function App() {
       </nav>
 
       {/* Sidebar Bottom Account Info */}
-      <div className="px-5 py-4 border-t border-slate-800 text-[11px] text-slate-400 space-y-0.5">
-        <div className="text-slate-200 font-semibold truncate">{currentUser.fullName}</div>
+      <div className="px-5 py-4 border-t border-[#EFE7E2] bg-[#FDF6F0]/40 text-[11px] text-slate-500 space-y-0.5">
+        <div className="text-[#111827] font-bold truncate">{currentUser.fullName}</div>
         <div className="font-mono truncate">{currentUser.username} · {isAdmin ? 'Admin' : 'Penghuni'}</div>
-        <div className="pt-1 text-slate-500">solproperty.solagency.id</div>
+        <div className="pt-1 text-[#D92B22] font-medium">PT Solusi Optima Laju</div>
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
+    <div className="min-h-screen flex flex-col bg-[#FAF8F6]">
       <AppHeader
         currentUser={currentUser}
         onLogout={handleLogout}
@@ -644,7 +644,7 @@ export default function App() {
 
       <div className="flex-1 flex min-h-0">
         {/* Desktop Sidebar */}
-        <aside className="hidden lg:block w-64 shrink-0 border-r border-slate-800 no-print">
+        <aside className="hidden lg:block w-64 shrink-0 border-r border-[#EFE7E2] bg-white no-print">
           <div className="sticky top-16 h-[calc(100vh-4rem)]">{renderSidebarNav(false)}</div>
         </aside>
 

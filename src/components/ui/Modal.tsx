@@ -40,11 +40,11 @@ export function Modal({
       }}
     >
       <div
-        className={`w-full ${maxWidthClass} max-h-[90vh] flex flex-col bg-white rounded-xl border border-slate-200 shadow-2xl overflow-hidden`}
+        className={`w-full ${maxWidthClass} max-h-[90vh] flex flex-col bg-white rounded-2xl border border-[#EFE7E2] shadow-2xl overflow-hidden`}
       >
-        <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-slate-200 bg-white">
+        <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-[#EFE7E2] bg-white">
           <div className="min-w-0">
-            <h2 id="modal-title" className="text-base font-semibold text-slate-900 truncate">
+            <h2 id="modal-title" className="text-base font-bold text-[#111827] truncate">
               {title}
             </h2>
             {subtitle && <p className="text-xs text-slate-500 mt-0.5">{subtitle}</p>}
@@ -52,7 +52,7 @@ export function Modal({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-[#D92B22] hover:bg-[#FEF2F0] transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D92B22]"
             aria-label="Tutup dialog"
           >
             <X className="w-4 h-4" />

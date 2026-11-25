@@ -47,8 +47,8 @@ interface BillingModuleProps {
 
 const INVOICE_STATUS_STYLES: Record<InvoiceStatus, string> = {
   Lunas: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-  'Menunggu Verifikasi': 'bg-blue-50 text-blue-800 border-blue-200',
-  'Belum Bayar': 'bg-rose-50 text-rose-800 border-rose-200',
+  'Menunggu Verifikasi': 'bg-amber-50 text-amber-800 border-amber-200',
+  'Belum Bayar': 'bg-[#FEF2F0] text-[#D92B22] border-[#F8C9C3]',
 };
 
 export function BillingModule({
@@ -223,15 +223,20 @@ export function BillingModule({
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">Pembayaran & Tagihan Sewa</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#D92B22]">
+            Keuangan &amp; Penagihan
+          </span>
+          <h1 className="text-2xl font-extrabold text-[#111827] tracking-tight mt-0.5">
+            Pembayaran &amp; <span className="text-[#D92B22]">Tagihan Sewa</span>
+          </h1>
+          <p className="text-xs text-slate-500 mt-1">
             Penerbitan invoice sewa, verifikasi bukti transfer penghuni, dan pengingat WhatsApp 1-klik
           </p>
         </div>
         <button
           type="button"
           onClick={openCreateModal}
-          className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-sm"
         >
           <Plus className="w-4 h-4" />
           <span>Buat Tagihan Baru</span>
@@ -240,43 +245,43 @@ export function BillingModule({
 
       {/* Billing Summary Strip */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <span className="text-xs font-medium text-slate-500">Total Lunas (Periode Dipilih)</span>
-          <div className="text-xl font-bold font-mono text-emerald-700 tabular-nums mt-1.5">
+        <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4">
+          <span className="text-xs font-semibold text-slate-500">Total Lunas (Periode Dipilih)</span>
+          <div className="text-xl font-extrabold font-mono text-emerald-700 tabular-nums mt-1.5">
             {formatIDR(summary.paid)}
           </div>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <span className="text-xs font-medium text-slate-500">
+        <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4">
+          <span className="text-xs font-semibold text-slate-500">
             Menunggu Verifikasi ({summary.pendingVerifyCount} tagihan)
           </span>
-          <div className="text-xl font-bold font-mono text-blue-700 tabular-nums mt-1.5">
+          <div className="text-xl font-extrabold font-mono text-[#EA580C] tabular-nums mt-1.5">
             {formatIDR(summary.pendingVerify)}
           </div>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <span className="text-xs font-medium text-slate-500">
+        <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4">
+          <span className="text-xs font-semibold text-slate-500">
             Belum Bayar / Jatuh Tempo ({summary.unpaidCount} tagihan)
           </span>
-          <div className="text-xl font-bold font-mono text-rose-700 tabular-nums mt-1.5">
+          <div className="text-xl font-extrabold font-mono text-[#D92B22] tabular-nums mt-1.5">
             {formatIDR(summary.unpaid)}
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white border border-slate-200 rounded-xl p-4 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+      <div className="bg-white border border-[#EFE7E2] rounded-2xl p-4 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center p-1 bg-slate-100 rounded-lg">
+          <div className="flex items-center p-1 bg-[#FDF6F0] rounded-full border border-[#F3E6DD]">
             {(['ALL', 'Belum Bayar', 'Menunggu Verifikasi', 'Lunas'] as const).map((st) => (
               <button
                 key={st}
                 type="button"
                 onClick={() => setStatusFilter(st)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer ${
+                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-colors whitespace-nowrap cursor-pointer ${
                   statusFilter === st
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-white text-[#D92B22] shadow-sm'
+                    : 'text-slate-600 hover:text-[#111827]'
                 }`}
               >
                 {st === 'ALL' ? 'Semua' : st}
@@ -326,7 +331,7 @@ export function BillingModule({
       </div>
 
       {/* Invoices Table */}
-      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+      <div className="bg-white border border-[#EFE7E2] rounded-2xl overflow-hidden">
         {filteredInvoices.length === 0 ? (
           <div className="p-12 text-center">
             <Receipt className="w-9 h-9 text-slate-300 mx-auto mb-3" />
@@ -339,7 +344,7 @@ export function BillingModule({
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-semibold text-slate-500">
+                <tr className="border-b border-[#EFE7E2] bg-[#FDF6F0]/70 text-[11px] font-semibold text-slate-600">
                   <th className="py-3 px-4">No. Invoice & Periode</th>
                   <th className="py-3 px-4">Penyewa & Unit</th>
                   <th className="py-3 px-4 text-right">Sewa Pokok</th>
@@ -415,7 +420,7 @@ export function BillingModule({
                             <button
                               type="button"
                               onClick={() => openReviewModal(inv)}
-                              className="px-2.5 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-md cursor-pointer"
+                              className="px-3 py-1.5 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full cursor-pointer"
                             >
                               Verifikasi
                             </button>
@@ -791,17 +796,17 @@ export function BillingModule({
             </span>
           </div>
 
-          <div className="pt-2 border-t border-slate-100 flex items-center justify-end gap-2.5">
+          <div className="pt-2 border-t border-[#F3EAE5] flex items-center justify-end gap-2.5">
             <button
               type="button"
               onClick={() => setCreateOpen(false)}
-              className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg cursor-pointer"
+              className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-[#E5DDD8] hover:bg-slate-50 rounded-full cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg cursor-pointer"
+              className="px-5 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full cursor-pointer"
             >
               Terbitkan Tagihan
             </button>

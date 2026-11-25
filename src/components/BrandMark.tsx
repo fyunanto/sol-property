@@ -1,18 +1,25 @@
 import { useEffect } from 'react';
 
+// Signature SOLProperty SVG Favicon matching SOL Agency's vibrant red-orange-gold circular sun emblem
 const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="solGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="100%" stop-color="#1D4ED8"/>
+    <linearGradient id="solSunGrad" x1="12" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D92B22"/>
+      <stop offset="52%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#FACC15"/>
+    </linearGradient>
+    <linearGradient id="solWaveGrad" x1="12" y1="44" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FACC15"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#solGrad)"/>
-  <path d="M12 29L32 14L52 29" fill="none" stroke="#FFFFFF" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M18 26V49H46V26" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="25" y="34" width="14" height="15" rx="1.5" fill="#FFFFFF" fill-opacity="0.22" stroke="#FFFFFF" stroke-width="2.6"/>
-  <line x1="25" y1="40" x2="39" y2="40" stroke="#FFFFFF" stroke-width="2.2"/>
-  <line x1="32" y1="34" x2="32" y2="49" stroke="#FFFFFF" stroke-width="2.2"/>
+  <circle cx="32" cy="32" r="30" fill="#FFFFFF" stroke="#F3E8E2" stroke-width="2"/>
+  <circle cx="32" cy="32" r="25" fill="url(#solSunGrad)"/>
+  <path d="M16 32L32 18L48 32" fill="none" stroke="#FFFFFF" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M21 29.5V43.5H43V29.5" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="28" y="34" width="8" height="9.5" rx="1" fill="#FFFFFF"/>
+  <path d="M14 46.5C21 43.2 43 43.2 50 46.5" fill="none" stroke="#FEF08A" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M19 51C25 48.6 39 48.6 45 51" fill="none" stroke="#FDE047" stroke-width="2.2" stroke-linecap="round"/>
 </svg>`;
 
 export function useDynamicFavicon() {
@@ -34,7 +41,7 @@ interface BrandMarkProps {
   className?: string;
 }
 
-export function BrandMark({ size = 36, className = '' }: BrandMarkProps) {
+export function BrandMark({ size = 40, className = '' }: BrandMarkProps) {
   return (
     <svg
       width={size}
@@ -46,39 +53,47 @@ export function BrandMark({ size = 36, className = '' }: BrandMarkProps) {
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id="solPropertyMarkGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#0F172A" />
-          <stop offset="100%" stopColor="#1D4ED8" />
+        <linearGradient id="solPropertySunGrad" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#D92B22" />
+          <stop offset="52%" stopColor="#EA580C" />
+          <stop offset="100%" stopColor="#FACC15" />
         </linearGradient>
       </defs>
-      <rect width="64" height="64" rx="14" fill="url(#solPropertyMarkGrad)" />
+      {/* Clean circular white medallion with warm subtle rim (SOL Agency style) */}
+      <circle cx="32" cy="32" r="30.5" fill="#FFFFFF" stroke="#F1E5DF" strokeWidth="1.5" />
+      <circle cx="32" cy="32" r="25.5" fill="url(#solPropertySunGrad)" />
+      {/* Crisp Architectural Roof & Building Mark */}
       <path
-        d="M12 29L32 14L52 29"
+        d="M15.5 31.5L32 17.5L48.5 31.5"
         stroke="#FFFFFF"
-        strokeWidth="4.2"
+        strokeWidth="3.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M18 26V49H46V26"
+        d="M21 29V43H43V29"
         stroke="#FFFFFF"
-        strokeWidth="3.6"
+        strokeWidth="3.2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <rect
-        x="25"
-        y="34"
-        width="14"
-        height="15"
-        rx="1.5"
-        fill="#FFFFFF"
-        fillOpacity="0.2"
-        stroke="#FFFFFF"
-        strokeWidth="2.6"
+      {/* Ledger Window Grid */}
+      <rect x="27.5" y="33.5" width="9" height="9.5" rx="1.2" fill="#FFFFFF" fillOpacity="0.24" stroke="#FFFFFF" strokeWidth="2.2" />
+      <line x1="32" y1="33.5" x2="32" y2="43" stroke="#FFFFFF" strokeWidth="1.8" />
+      <line x1="27.5" y1="38" x2="36.5" y2="38" stroke="#FFFFFF" strokeWidth="1.8" />
+      {/* Signature SOL Golden Sun Horizon Arcs */}
+      <path
+        d="M14.5 46.8C21.5 43.8 42.5 43.8 49.5 46.8"
+        stroke="#FEF08A"
+        strokeWidth="2.4"
+        strokeLinecap="round"
       />
-      <line x1="25" y1="40" x2="39" y2="40" stroke="#FFFFFF" strokeWidth="2.2" />
-      <line x1="32" y1="34" x2="32" y2="49" stroke="#FFFFFF" strokeWidth="2.2" />
+      <path
+        d="M20 51C25.5 48.8 38.5 48.8 44 51"
+        stroke="#FDE047"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

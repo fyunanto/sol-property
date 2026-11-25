@@ -4,12 +4,9 @@ import {
   Building2,
   CalendarClock,
   CheckCircle2,
-  FileText,
-  Home,
   MessageSquare,
   Plus,
   Printer,
-  Receipt,
   Upload,
   Wrench,
 } from 'lucide-react';
@@ -118,7 +115,7 @@ export function TenantPortal({
       paymentMethod,
       paymentReference: paymentReference.trim() || 'TRF-MANUAL',
       receiptFileName: receiptFileName.trim() || `bukti_transfer_${confirmInvoice.periodKey}.jpg`,
-      receiptNote: receiptNote.trim() || 'Pembayaran telah dikirim ke rekening BCA PT SOL Property Nusantara.',
+      receiptNote: receiptNote.trim() || 'Pembayaran telah dikirim ke rekening BCA PT Solusi Optima Laju.',
     });
     setConfirmInvoice(null);
   };
@@ -153,17 +150,17 @@ export function TenantPortal({
 
   return (
     <div className="space-y-6">
-      {/* In-App Due-Date Reminder Banner (Visible across Overview & Billing if unpaid) */}
+      {/* Signature SOL Gradient Due-Date Reminder Banner */}
       {unpaidInvoice && (activeTab === 'overview' || activeTab === 'billing') && (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 no-print">
+        <div className="sol-gradient-banner rounded-2xl p-5 text-white flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-[0_12px_32px_rgba(217,43,34,0.18)] no-print">
           <div className="flex items-start gap-3">
-            <CalendarClock className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+            <CalendarClock className="w-5 h-5 text-[#FEF08A] shrink-0 mt-0.5" />
             <div>
-              <h2 className="text-sm font-bold text-amber-950">
+              <h2 className="text-sm font-extrabold">
                 Pengingat Tagihan Sewa {unpaidInvoice.period} —{' '}
                 <span className="font-mono">{formatIDR(unpaidInvoice.totalAmount)}</span>
               </h2>
-              <p className="text-xs text-amber-900/80 mt-0.5 leading-relaxed">
+              <p className="text-xs text-white/90 mt-1 leading-relaxed">
                 {overdue
                   ? `Tagihan ${unpaidInvoice.invoiceNumber} telah melewati tanggal jatuh tempo (${formatDateID(unpaidInvoice.dueDate)}).`
                   : `Jatuh tempo pada ${formatDateID(unpaidInvoice.dueDate)} (${dueDiff} hari lagi). Transfer ke BCA 7120-8842-19 a.n. PT SOL Property Nusantara lalu konfirmasi pembayaran Anda.`}
@@ -175,7 +172,7 @@ export function TenantPortal({
               href={managerWaHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-amber-900 bg-white border border-amber-300 hover:bg-amber-100/60 rounded-lg whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-white/15 hover:bg-white/25 border border-white/30 rounded-full whitespace-nowrap transition-colors"
             >
               <MessageSquare className="w-3.5 h-3.5" />
               <span>Hubungi Pengelola</span>
@@ -183,7 +180,7 @@ export function TenantPortal({
             <button
               type="button"
               onClick={() => openPaymentModal(unpaidInvoice)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg whitespace-nowrap cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-[#D92B22] bg-white hover:bg-[#FEF2F0] rounded-full whitespace-nowrap cursor-pointer shadow-sm transition-colors"
             >
               <Upload className="w-3.5 h-3.5" />
               <span>Konfirmasi Pembayaran</span>
@@ -194,10 +191,10 @@ export function TenantPortal({
 
       {/* Pending Verification Notice */}
       {!unpaidInvoice && pendingVerifyInvoice && activeTab === 'overview' && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between gap-3 no-print">
+        <div className="bg-[#FDF6F0] border border-[#F3D8CE] rounded-2xl p-4 flex items-center justify-between gap-3 no-print">
           <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-blue-700 shrink-0" />
-            <p className="text-xs text-blue-950">
+            <CheckCircle2 className="w-5 h-5 text-[#EA580C] shrink-0" />
+            <p className="text-xs text-[#111827]">
               Bukti transfer untuk <strong>{pendingVerifyInvoice.invoiceNumber}</strong> (
               {formatIDR(pendingVerifyInvoice.totalAmount)}) sedang diverifikasi oleh pengelola properti.
             </p>
@@ -205,9 +202,9 @@ export function TenantPortal({
           <button
             type="button"
             onClick={() => onTabChange('billing')}
-            className="text-xs font-semibold text-blue-700 hover:text-blue-900 whitespace-nowrap cursor-pointer"
+            className="text-xs font-bold text-[#D92B22] hover:text-[#B91C1C] whitespace-nowrap cursor-pointer"
           >
-            Lihat Status
+            Lihat Status →
           </button>
         </div>
       )}
@@ -217,57 +214,58 @@ export function TenantPortal({
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">
-                Selamat Datang, {tenant.fullName}
+              <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#D92B22]">
+                Portal Mandiri Penghuni
+              </span>
+              <h1 className="text-2xl font-extrabold text-[#111827] tracking-tight mt-0.5">
+                Selamat Datang, <span className="text-[#D92B22]">{tenant.fullName}</span>
               </h1>
-              <p className="text-sm text-slate-500 mt-0.5">
-                Portal Mandiri Penghuni · {property.name} · Kamar {room.roomNumber} ({room.type})
+              <p className="text-xs text-slate-500 mt-1">
+                {property.name} · Kamar {room.roomNumber} ({room.type})
               </p>
             </div>
             <button
               type="button"
               onClick={() => setComplaintOpen(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#0F172A] hover:bg-slate-800 rounded-lg whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full whitespace-nowrap shrink-0 cursor-pointer shadow-sm"
             >
               <Wrench className="w-4 h-4" />
               <span>Ajukan Komplain / Perbaikan</span>
             </button>
           </div>
 
-          {/* Summary KPI Row (Tenant-Scoped Only) */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white border border-slate-200 rounded-xl p-5">
-              <span className="text-xs font-medium text-slate-500">Unit Hunian Aktif</span>
-              <div className="text-xl font-bold text-slate-900 font-mono mt-2">
+            <div className="bg-white border border-[#EFE7E2] rounded-2xl p-5">
+              <span className="text-xs font-semibold text-slate-500">Unit Hunian Aktif</span>
+              <div className="text-xl font-extrabold text-[#111827] font-mono mt-2">
                 Kamar {room.roomNumber}
               </div>
               <p className="text-xs text-slate-500 mt-1">
                 {room.type} · Lantai {room.floor} · {room.areaSqm} m²
               </p>
             </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-5">
-              <span className="text-xs font-medium text-slate-500">Tarif Sewa Bulanan</span>
-              <div className="text-xl font-bold text-slate-900 font-mono tabular-nums mt-2">
+            <div className="bg-white border border-[#EFE7E2] rounded-2xl p-5">
+              <span className="text-xs font-semibold text-slate-500">Tarif Sewa Bulanan</span>
+              <div className="text-xl font-extrabold text-[#D92B22] font-mono tabular-nums mt-2">
                 {formatIDR(room.monthlyRate)}
               </div>
               <p className="text-xs text-slate-500 mt-1 tabular-nums">
                 Deposit aktif: {formatIDR(tenant.depositAmount)}
               </p>
             </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-5">
-              <span className="text-xs font-medium text-slate-500">Masa Kontrak Sewa</span>
-              <div className="text-xl font-bold text-slate-900 mt-2">{tenant.contractStatus}</div>
+            <div className="bg-white border border-[#EFE7E2] rounded-2xl p-5">
+              <span className="text-xs font-semibold text-slate-500">Masa Kontrak Sewa</span>
+              <div className="text-xl font-extrabold text-[#111827] mt-2">{tenant.contractStatus}</div>
               <p className="text-xs text-slate-500 mt-1 tabular-nums">
                 Berlaku s.d. {formatDateID(tenant.leaseEndDate)}
               </p>
             </div>
           </div>
 
-          {/* Room & Property Detail Card + Recent Tickets */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-xl overflow-hidden">
+            <div className="lg:col-span-7 bg-white border border-[#EFE7E2] rounded-2xl overflow-hidden">
               <div className="grid grid-cols-1 sm:grid-cols-5">
-                <div className="sm:col-span-2 bg-slate-100 min-h-[180px]">
+                <div className="sm:col-span-2 bg-[#FDF6F0] min-h-[180px]">
                   {!imgError ? (
                     <img
                       src={property.imageUrl}
@@ -277,23 +275,25 @@ export function TenantPortal({
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full bg-slate-800 flex items-center justify-center text-white">
+                    <div className="w-full h-full sol-gradient-banner flex items-center justify-center text-white">
                       <Building2 className="w-8 h-8" />
                     </div>
                   )}
                 </div>
                 <div className="sm:col-span-3 p-5 space-y-3">
                   <div>
-                    <span className="text-xs font-medium text-blue-700">{property.type}</span>
-                    <h2 className="text-base font-bold text-slate-900 mt-0.5">{property.name}</h2>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#D92B22]">
+                      {property.type}
+                    </span>
+                    <h2 className="text-base font-extrabold text-[#111827] mt-0.5">{property.name}</h2>
                     <p className="text-xs text-slate-500 mt-0.5">
                       {property.address}, {property.city}
                     </p>
                   </div>
-                  <div className="pt-3 border-t border-slate-100 text-xs space-y-1.5">
+                  <div className="pt-3 border-t border-[#F3EAE5] text-xs space-y-1.5">
                     <div>
                       <span className="text-slate-500">Catatan Kamar: </span>
-                      <span className="text-slate-800 font-medium">{room.notes || 'Standar unit eksklusif'}</span>
+                      <span className="text-[#111827] font-medium">{room.notes || 'Standar unit eksklusif'}</span>
                     </div>
                     <div>
                       <span className="text-slate-500">Fasilitas Gedung: </span>
@@ -301,7 +301,7 @@ export function TenantPortal({
                     </div>
                     <div>
                       <span className="text-slate-500">Pengelola Lokasi: </span>
-                      <span className="text-slate-800 font-medium">
+                      <span className="text-[#111827] font-semibold">
                         {property.managerName} ({property.managerPhone})
                       </span>
                     </div>
@@ -310,16 +310,16 @@ export function TenantPortal({
               </div>
             </div>
 
-            <div className="lg:col-span-5 bg-white border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
+            <div className="lg:col-span-5 bg-white border border-[#EFE7E2] rounded-2xl p-5 flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <h2 className="text-sm font-semibold text-slate-900">Status Perbaikan Kamar Saya</h2>
+                <div className="flex items-center justify-between pb-3 border-b border-[#F3EAE5]">
+                  <h2 className="text-sm font-bold text-[#111827]">Status Perbaikan Kamar Saya</h2>
                   <button
                     type="button"
                     onClick={() => onTabChange('maintenance')}
-                    className="text-xs font-semibold text-blue-700 hover:text-blue-800 cursor-pointer"
+                    className="text-xs font-semibold text-[#D92B22] hover:text-[#B91C1C] cursor-pointer"
                   >
-                    Kelola ({myTickets.length})
+                    Kelola ({myTickets.length}) →
                   </button>
                 </div>
                 {myTickets.length === 0 ? (
@@ -327,18 +327,18 @@ export function TenantPortal({
                     Belum ada laporan perbaikan untuk Kamar {room.roomNumber}.
                   </p>
                 ) : (
-                  <div className="divide-y divide-slate-100 mt-1">
+                  <div className="divide-y divide-[#F3EAE5] mt-1">
                     {myTickets.slice(0, 3).map((tk) => (
                       <div key={tk.id} className="py-3">
                         <div className="flex items-center justify-between gap-2 text-xs">
-                          <span className="font-semibold text-slate-900 truncate">{tk.title}</span>
+                          <span className="font-bold text-[#111827] truncate">{tk.title}</span>
                           <span
                             className={`text-[11px] font-semibold shrink-0 ${
                               tk.status === 'Resolved'
                                 ? 'text-emerald-700'
                                 : tk.status === 'In Progress'
-                                  ? 'text-amber-700'
-                                  : 'text-rose-700'
+                                  ? 'text-[#EA580C]'
+                                  : 'text-[#D92B22]'
                             }`}
                           >
                             {tk.status}
@@ -352,13 +352,13 @@ export function TenantPortal({
                   </div>
                 )}
               </div>
-              <div className="pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between">
+              <div className="pt-3 border-t border-[#F3EAE5] text-xs text-slate-500 flex items-center justify-between">
                 <span>{openTickets.length} laporan sedang ditangani</span>
                 <a
                   href={managerWaHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-700 font-semibold hover:underline"
+                  className="text-[#D92B22] font-semibold hover:underline"
                 >
                   Chat WA Pengelola
                 </a>
@@ -372,19 +372,24 @@ export function TenantPortal({
       {activeTab === 'billing' && (
         <div className="space-y-6">
           <div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">Tagihan & Riwayat Pembayaran Saya</h1>
-            <p className="text-sm text-slate-500 mt-0.5">
+            <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#D92B22]">
+              Riwayat Keuangan Pribadi
+            </span>
+            <h1 className="text-2xl font-extrabold text-[#111827] tracking-tight mt-0.5">
+              Tagihan &amp; Riwayat Pembayaran Saya
+            </h1>
+            <p className="text-xs text-slate-500 mt-1">
               Rincian tagihan bulanan Kamar {room.roomNumber} · Rekening transfer BCA 7120-8842-19 a.n. PT SOL
               Property Nusantara
             </p>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+          <div className="bg-white border border-[#EFE7E2] rounded-2xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-semibold text-slate-500">
-                    <th className="py-3 px-4">No. Invoice & Periode</th>
+                  <tr className="border-b border-[#EFE7E2] bg-[#FDF6F0]/70 text-[11px] font-semibold text-slate-600">
+                    <th className="py-3 px-4">No. Invoice &amp; Periode</th>
                     <th className="py-3 px-4">Rincian Komponen</th>
                     <th className="py-3 px-4 text-right">Total (IDR)</th>
                     <th className="py-3 px-4">Jatuh Tempo</th>
@@ -392,11 +397,11 @@ export function TenantPortal({
                     <th className="py-3 px-4 text-right">Aksi</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 text-xs">
+                <tbody className="divide-y divide-[#F3EAE5] text-xs">
                   {sortedInvoices.map((inv) => (
-                    <tr key={inv.id} className="hover:bg-slate-50/70">
+                    <tr key={inv.id} className="hover:bg-[#FDF6F0]/40">
                       <td className="py-3.5 px-4 whitespace-nowrap">
-                        <div className="font-mono font-semibold text-slate-900">{inv.invoiceNumber}</div>
+                        <div className="font-mono font-semibold text-[#111827]">{inv.invoiceNumber}</div>
                         <div className="text-[11px] text-slate-500 mt-0.5">{inv.period}</div>
                       </td>
                       <td className="py-3.5 px-4">
@@ -409,7 +414,7 @@ export function TenantPortal({
                           </div>
                         ))}
                       </td>
-                      <td className="py-3.5 px-4 text-right font-mono font-bold text-slate-900 tabular-nums whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-right font-mono font-bold text-[#111827] tabular-nums whitespace-nowrap">
                         {formatIDR(inv.totalAmount)}
                       </td>
                       <td className="py-3.5 px-4 whitespace-nowrap tabular-nums text-slate-700">
@@ -424,8 +429,8 @@ export function TenantPortal({
                             inv.status === 'Lunas'
                               ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                               : inv.status === 'Menunggu Verifikasi'
-                                ? 'bg-blue-50 text-blue-800 border-blue-200'
-                                : 'bg-rose-50 text-rose-800 border-rose-200'
+                                ? 'bg-amber-50 text-amber-800 border-amber-200'
+                                : 'bg-[#FEF2F0] text-[#D92B22] border-[#F8C9C3]'
                           }`}
                         >
                           {inv.status}
@@ -436,13 +441,13 @@ export function TenantPortal({
                           <button
                             type="button"
                             onClick={() => openPaymentModal(inv)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-md cursor-pointer"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full cursor-pointer"
                           >
                             <Upload className="w-3.5 h-3.5" />
                             <span>Konfirmasi Transfer</span>
                           </button>
                         ) : inv.status === 'Menunggu Verifikasi' ? (
-                          <span className="text-[11px] text-blue-700 font-medium">
+                          <span className="text-[11px] text-[#EA580C] font-semibold">
                             Bukti terkirim ({inv.receiptFileName})
                           </span>
                         ) : (
@@ -465,15 +470,20 @@ export function TenantPortal({
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">Komplain & Perbaikan Kamar</h1>
-              <p className="text-sm text-slate-500 mt-0.5">
+              <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#D92B22]">
+                Layanan Pemeliharaan Unit
+              </span>
+              <h1 className="text-2xl font-extrabold text-[#111827] tracking-tight mt-0.5">
+                Komplain &amp; Perbaikan Kamar
+              </h1>
+              <p className="text-xs text-slate-500 mt-1">
                 Laporkan kendala fasilitas di Kamar {room.roomNumber} dan pantau progres teknisi
               </p>
             </div>
             <button
               type="button"
               onClick={() => setComplaintOpen(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full whitespace-nowrap shrink-0 cursor-pointer shadow-sm"
             >
               <Plus className="w-4 h-4" />
               <span>Buat Laporan Baru</span>
@@ -481,9 +491,9 @@ export function TenantPortal({
           </div>
 
           {myTickets.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
+            <div className="bg-white border border-[#EFE7E2] rounded-2xl p-12 text-center">
               <Wrench className="w-9 h-9 text-slate-300 mx-auto mb-3" />
-              <h3 className="text-sm font-semibold text-slate-900">Belum ada laporan kerusakan</h3>
+              <h3 className="text-sm font-bold text-[#111827]">Belum ada laporan kerusakan</h3>
               <p className="text-xs text-slate-500 mt-1">
                 Klik "Buat Laporan Baru" apabila terdapat kendala AC, air, listrik, atau Wi-Fi di kamar Anda.
               </p>
@@ -493,11 +503,11 @@ export function TenantPortal({
               {myTickets.map((tk) => (
                 <div
                   key={tk.id}
-                  className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col sm:flex-row sm:items-start justify-between gap-4"
+                  className="bg-white border border-[#EFE7E2] rounded-2xl p-5 flex flex-col sm:flex-row sm:items-start justify-between gap-4"
                 >
                   <div className="space-y-1.5">
                     <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
-                      <span className="font-mono font-semibold text-slate-700">{tk.ticketCode}</span>
+                      <span className="font-mono font-semibold text-[#111827]">{tk.ticketCode}</span>
                       <span aria-hidden="true">·</span>
                       <span>{tk.category}</span>
                       <span aria-hidden="true">·</span>
@@ -506,19 +516,19 @@ export function TenantPortal({
                       <span
                         className={
                           tk.priority === 'Tinggi'
-                            ? 'text-rose-700 font-semibold'
+                            ? 'text-[#D92B22] font-semibold'
                             : tk.priority === 'Sedang'
-                              ? 'text-amber-700 font-semibold'
+                              ? 'text-[#EA580C] font-semibold'
                               : 'text-slate-600'
                         }
                       >
                         Prioritas {tk.priority}
                       </span>
                     </div>
-                    <h3 className="text-sm font-bold text-slate-900">{tk.title}</h3>
+                    <h3 className="text-sm font-bold text-[#111827]">{tk.title}</h3>
                     <p className="text-xs text-slate-600 leading-relaxed">{tk.description}</p>
                     <p className="text-xs text-slate-500 pt-1">
-                      Teknisi: <span className="font-medium text-slate-800">{tk.assignedTechnician}</span>
+                      Teknisi: <span className="font-semibold text-[#111827]">{tk.assignedTechnician}</span>
                       {tk.resolvedAt && (
                         <>
                           <span className="mx-1.5" aria-hidden="true">·</span>
@@ -534,7 +544,7 @@ export function TenantPortal({
                         ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                         : tk.status === 'In Progress'
                           ? 'bg-amber-50 text-amber-800 border-amber-200'
-                          : 'bg-rose-50 text-rose-800 border-rose-200'
+                          : 'bg-[#FEF2F0] text-[#D92B22] border-[#F8C9C3]'
                     }`}
                   >
                     {tk.status}
@@ -551,32 +561,37 @@ export function TenantPortal({
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 no-print">
             <div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">Kontrak Sewa & Profil Penghuni</h1>
-              <p className="text-sm text-slate-500 mt-0.5">
+              <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#D92B22]">
+                Dokumen Perjanjian Hunian
+              </span>
+              <h1 className="text-2xl font-extrabold text-[#111827] tracking-tight mt-0.5">
+                Kontrak Sewa &amp; Profil Penghuni
+              </h1>
+              <p className="text-xs text-slate-500 mt-1">
                 Dokumen ringkasan perjanjian sewa unit dan data kontak darurat pribadi Anda
               </p>
             </div>
             <button
               type="button"
               onClick={() => window.print()}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#0F172A] hover:bg-slate-800 rounded-lg whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full whitespace-nowrap shrink-0 cursor-pointer shadow-sm"
             >
               <Printer className="w-4 h-4" />
               <span>Cetak Ringkasan Kontrak</span>
             </button>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-xl p-6 space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200">
+          <div className="bg-white border border-[#EFE7E2] rounded-2xl p-6 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#EFE7E2]">
               <div>
-                <h2 className="text-base font-bold text-slate-900">
+                <h2 className="text-base font-extrabold text-[#111827]">
                   Perjanjian Sewa Unit — {property.name}
                 </h2>
                 <p className="text-xs text-slate-500">
                   {property.address}, {property.city}
                 </p>
               </div>
-              <span className="text-xs font-semibold text-emerald-700">
+              <span className="text-xs font-bold text-emerald-700">
                 Status Kontrak: {tenant.contractStatus}
               </span>
             </div>
@@ -584,34 +599,34 @@ export function TenantPortal({
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-xs">
               <div>
                 <span className="text-slate-500 block">Nama Lengkap Penghuni</span>
-                <span className="text-sm font-semibold text-slate-900 mt-0.5 block">{tenant.fullName}</span>
+                <span className="text-sm font-bold text-[#111827] mt-0.5 block">{tenant.fullName}</span>
               </div>
               <div>
                 <span className="text-slate-500 block">NIK / Identitas KTP</span>
-                <span className="text-sm font-mono font-semibold text-slate-900 mt-0.5 block tabular-nums">
+                <span className="text-sm font-mono font-bold text-[#111827] mt-0.5 block tabular-nums">
                   {tenant.nik}
                 </span>
-                <span className="text-emerald-700 font-medium">KTP {tenant.idVerified}</span>
+                <span className="text-emerald-700 font-semibold">KTP {tenant.idVerified}</span>
               </div>
               <div>
                 <span className="text-slate-500 block">Pekerjaan / Instansi</span>
-                <span className="text-sm font-medium text-slate-900 mt-0.5 block">{tenant.occupation}</span>
+                <span className="text-sm font-medium text-[#111827] mt-0.5 block">{tenant.occupation}</span>
               </div>
               <div>
-                <span className="text-slate-500 block">Nomor Unit & Tipe</span>
-                <span className="text-sm font-mono font-semibold text-slate-900 mt-0.5 block">
+                <span className="text-slate-500 block">Nomor Unit &amp; Tipe</span>
+                <span className="text-sm font-mono font-bold text-[#111827] mt-0.5 block">
                   Kamar {room.roomNumber} · {room.type} ({room.areaSqm} m²)
                 </span>
               </div>
               <div>
                 <span className="text-slate-500 block">Periode Sewa</span>
-                <span className="text-sm font-semibold text-slate-900 mt-0.5 block tabular-nums">
+                <span className="text-sm font-bold text-[#111827] mt-0.5 block tabular-nums">
                   {formatDateID(tenant.checkInDate)} — {formatDateID(tenant.leaseEndDate)}
                 </span>
               </div>
               <div>
-                <span className="text-slate-500 block">Tarif & Uang Jaminan</span>
-                <span className="text-sm font-mono font-semibold text-slate-900 mt-0.5 block tabular-nums">
+                <span className="text-slate-500 block">Tarif &amp; Uang Jaminan</span>
+                <span className="text-sm font-mono font-bold text-[#D92B22] mt-0.5 block tabular-nums">
                   {formatIDR(room.monthlyRate)} / bln
                 </span>
                 <span className="text-slate-500 font-mono tabular-nums">
@@ -620,9 +635,9 @@ export function TenantPortal({
               </div>
             </div>
 
-            <div className="pt-5 border-t border-slate-100">
+            <div className="pt-5 border-t border-[#F3EAE5]">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-semibold text-slate-900">Kontak Darurat Terdaftar</h3>
+                <h3 className="text-sm font-bold text-[#111827]">Kontak Darurat Terdaftar</h3>
                 {!editingEmergency && (
                   <button
                     type="button"
@@ -631,7 +646,7 @@ export function TenantPortal({
                       setEcPhone(tenant.emergencyContactPhone);
                       setEditingEmergency(true);
                     }}
-                    className="text-xs font-semibold text-blue-700 hover:text-blue-800 no-print cursor-pointer"
+                    className="text-xs font-semibold text-[#D92B22] hover:text-[#B91C1C] no-print cursor-pointer"
                   >
                     Perbarui Kontak Darurat
                   </button>
@@ -641,36 +656,36 @@ export function TenantPortal({
               {editingEmergency ? (
                 <form onSubmit={handleEmergencySubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 mb-1">Nama Kontak Darurat</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">Nama Kontak Darurat</label>
                     <input
                       type="text"
                       required
                       value={ecName}
                       onChange={(e) => setEcName(e.target.value)}
-                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg"
+                      className="w-full px-3 py-2 text-xs border border-[#E5DDD8] rounded-xl"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 mb-1">Nomor Telepon</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">Nomor Telepon</label>
                     <input
                       type="text"
                       required
                       value={ecPhone}
                       onChange={(e) => setEcPhone(e.target.value)}
-                      className="w-full px-3 py-2 text-xs font-mono border border-slate-300 rounded-lg"
+                      className="w-full px-3 py-2 text-xs font-mono border border-[#E5DDD8] rounded-xl"
                     />
                   </div>
                   <div className="flex items-center gap-2">
                     <button
                       type="submit"
-                      className="px-3.5 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg cursor-pointer"
+                      className="px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full cursor-pointer"
                     >
                       Simpan
                     </button>
                     <button
                       type="button"
                       onClick={() => setEditingEmergency(false)}
-                      className="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
+                      className="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-[#111827] cursor-pointer"
                     >
                       Batal
                     </button>
@@ -678,7 +693,7 @@ export function TenantPortal({
                 </form>
               ) : (
                 <div className="text-xs text-slate-700">
-                  <span className="font-semibold text-slate-900">{tenant.emergencyContactName}</span>
+                  <span className="font-bold text-[#111827]">{tenant.emergencyContactName}</span>
                   <span className="mx-2 text-slate-300">·</span>
                   <span className="font-mono">{tenant.emergencyContactPhone}</span>
                 </div>
@@ -701,19 +716,21 @@ export function TenantPortal({
       >
         {confirmInvoice && (
           <form onSubmit={handlePaymentSubmit} className="space-y-4">
-            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
-              <div className="font-semibold text-slate-900">Tujuan Transfer Resmi SOLProperty</div>
-              <div className="text-slate-600">Bank BCA · No. Rekening: <strong className="font-mono text-slate-900">7120-8842-19</strong></div>
+            <div className="p-3.5 bg-[#FDF6F0] border border-[#F3E6DD] rounded-xl text-xs space-y-1">
+              <div className="font-bold text-[#111827]">Tujuan Transfer Resmi SOLProperty</div>
+              <div className="text-slate-600">
+                Bank BCA · No. Rekening: <strong className="font-mono text-[#D92B22]">7120-8842-19</strong>
+              </div>
               <div className="text-slate-600">Atas Nama: PT SOL Property Nusantara</div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Metode Transfer</label>
+                <label className="block text-xs font-semibold text-[#111827] mb-1">Metode Transfer</label>
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white"
+                  className="w-full px-3 py-2 text-sm border border-[#E5DDD8] rounded-xl bg-white"
                 >
                   <option value="Transfer BCA">Transfer BCA</option>
                   <option value="Transfer Mandiri">Transfer Mandiri</option>
@@ -723,20 +740,20 @@ export function TenantPortal({
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">No. Referensi Transfer</label>
+                <label className="block text-xs font-semibold text-[#111827] mb-1">No. Referensi Transfer</label>
                 <input
                   type="text"
                   required
                   value={paymentReference}
                   onChange={(e) => setPaymentReference(e.target.value)}
                   placeholder="Contoh: TRF-BCA-231126"
-                  className="w-full px-3 py-2 text-sm font-mono border border-slate-300 rounded-lg"
+                  className="w-full px-3 py-2 text-sm font-mono border border-[#E5DDD8] rounded-xl"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-[#111827] mb-1">
                 Unggah Bukti Transfer (JPG / PNG / PDF)
               </label>
               <input
@@ -746,7 +763,7 @@ export function TenantPortal({
                   const file = e.target.files?.[0];
                   if (file) setReceiptFileName(file.name);
                 }}
-                className="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border file:border-slate-200 file:text-xs file:font-semibold file:bg-slate-50 file:text-slate-700 hover:file:bg-slate-100"
+                className="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3.5 file:rounded-full file:border file:border-[#E5DDD8] file:text-xs file:font-semibold file:bg-[#FDF6F0] file:text-[#D92B22] hover:file:bg-[#FEF2F0]"
               />
               {receiptFileName && (
                 <p className="text-[11px] text-emerald-700 font-mono mt-1.5">
@@ -756,27 +773,27 @@ export function TenantPortal({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Catatan Tambahan</label>
+              <label className="block text-xs font-semibold text-[#111827] mb-1">Catatan Tambahan</label>
               <textarea
                 rows={2}
                 value={receiptNote}
                 onChange={(e) => setReceiptNote(e.target.value)}
                 placeholder="Contoh: Sudah ditransfer lunas dari m-BCA a.n. Raka Pratama"
-                className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg"
+                className="w-full px-3 py-2 text-sm border border-[#E5DDD8] rounded-xl"
               />
             </div>
 
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+            <div className="pt-3 border-t border-[#F3EAE5] flex items-center justify-end gap-2.5">
               <button
                 type="button"
                 onClick={() => setConfirmInvoice(null)}
-                className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg cursor-pointer"
+                className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-[#E5DDD8] hover:bg-slate-50 rounded-full cursor-pointer"
               >
                 Batal
               </button>
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Kirim Bukti Pembayaran</span>
@@ -796,26 +813,26 @@ export function TenantPortal({
         <form onSubmit={handleComplaintSubmit} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Kategori Masalah</label>
+              <label className="block text-xs font-semibold text-[#111827] mb-1">Kategori Masalah</label>
               <select
                 value={compCategory}
                 onChange={(e) => setCompCategory(e.target.value as MaintenanceTicket['category'])}
-                className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white"
+                className="w-full px-3 py-2 text-sm border border-[#E5DDD8] rounded-xl bg-white"
               >
-                <option value="AC & Pendingin">AC & Pendingin</option>
-                <option value="Air & Sanitasi">Air & Sanitasi</option>
-                <option value="Listrik & Lampu">Listrik & Lampu</option>
-                <option value="Internet & Wi-Fi">Internet & Wi-Fi</option>
-                <option value="Furnitur & Kunci">Furnitur & Kunci</option>
+                <option value="AC & Pendingin">AC &amp; Pendingin</option>
+                <option value="Air & Sanitasi">Air &amp; Sanitasi</option>
+                <option value="Listrik & Lampu">Listrik &amp; Lampu</option>
+                <option value="Internet & Wi-Fi">Internet &amp; Wi-Fi</option>
+                <option value="Furnitur & Kunci">Furnitur &amp; Kunci</option>
                 <option value="Lainnya">Lainnya</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Tingkat Urgensi</label>
+              <label className="block text-xs font-semibold text-[#111827] mb-1">Tingkat Urgensi</label>
               <select
                 value={compPriority}
                 onChange={(e) => setCompPriority(e.target.value as TicketPriority)}
-                className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white"
+                className="w-full px-3 py-2 text-sm border border-[#E5DDD8] rounded-xl bg-white"
               >
                 <option value="Rendah">Rendah (Tidak Mendesak)</option>
                 <option value="Sedang">Sedang</option>
@@ -825,40 +842,40 @@ export function TenantPortal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Judul Keluhan</label>
+            <label className="block text-xs font-semibold text-[#111827] mb-1">Judul Keluhan</label>
             <input
               type="text"
               required
               value={compTitle}
               onChange={(e) => setCompTitle(e.target.value)}
               placeholder="Contoh: Keran shower kamar mandi bocor pelan"
-              className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg"
+              className="w-full px-3 py-2 text-sm border border-[#E5DDD8] rounded-xl"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Penjelasan Detail</label>
+            <label className="block text-xs font-semibold text-[#111827] mb-1">Penjelasan Detail</label>
             <textarea
               rows={3}
               required
               value={compDesc}
               onChange={(e) => setCompDesc(e.target.value)}
               placeholder="Tuliskan detail kerusakan dan jadwal kunjungan teknisi yang nyaman bagi Anda..."
-              className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg"
+              className="w-full px-3 py-2 text-sm border border-[#E5DDD8] rounded-xl"
             />
           </div>
 
-          <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+          <div className="pt-3 border-t border-[#F3EAE5] flex items-center justify-end gap-2.5">
             <button
               type="button"
               onClick={() => setComplaintOpen(false)}
-              className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg cursor-pointer"
+              className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-[#E5DDD8] hover:bg-slate-50 rounded-full cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full cursor-pointer"
             >
               <AlertTriangle className="w-4 h-4" />
               <span>Kirim Laporan Perbaikan</span>

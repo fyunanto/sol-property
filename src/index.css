@@ -5,6 +5,18 @@
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+:root {
+  --sol-red: #D92B22;
+  --sol-red-dark: #B91C1C;
+  --sol-orange: #EA580C;
+  --sol-amber: #F59E0B;
+  --sol-gold: #FACC15;
+  --sol-canvas: #FAF8F6;
+  --sol-blush: #FDF6F0;
+  --sol-border: #EFE7E2;
+  --sol-ink: #111827;
+}
+
 @layer base {
   html {
     font-family: var(--font-sans);
@@ -12,13 +24,24 @@
   }
 
   body {
-    background-color: #F8FAFC;
-    color: #0F172A;
+    background-color: var(--sol-canvas);
+    color: var(--sol-ink);
   }
 
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
+}
+
+.sol-gradient-banner {
+  background: linear-gradient(95deg, #F59E0B 0%, #EA580C 48%, #D92B22 100%);
+}
+
+.sol-hero-glow {
+  background:
+    radial-gradient(circle at 82% 24%, rgba(250, 204, 21, 0.16) 0%, rgba(234, 88, 12, 0.08) 28%, transparent 56%),
+    radial-gradient(circle at 18% 82%, rgba(217, 43, 34, 0.06) 0%, transparent 45%),
+    #FFFFFF;
 }
 
 @media print {
@@ -29,7 +52,7 @@
 
   body {
     background: #FFFFFF !important;
-    color: #0F172A !important;
+    color: #111827 !important;
     font-size: 11px;
   }
 

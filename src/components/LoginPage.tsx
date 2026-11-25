@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import {
+  AlertCircle,
+  ArrowRight,
   Building2,
   Eye,
   EyeOff,
@@ -8,8 +10,6 @@ import {
   ShieldCheck,
   User,
   UserCheck,
-  AlertCircle,
-  ArrowRight,
 } from 'lucide-react';
 import { BrandMark } from './BrandMark';
 import { LOGIN_HERO_IMAGE } from '../data/seedData';
@@ -61,209 +61,275 @@ export function LoginPage({ accounts, onLoginSuccess }: LoginPageProps) {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 bg-[#F8FAFC]">
-      {/* Left Architectural Brand Column */}
-      <div className="relative lg:col-span-7 bg-[#0F172A] text-white flex flex-col justify-between overflow-hidden min-h-[320px] lg:min-h-screen">
-        {!heroError ? (
-          <img
-            src={LOGIN_HERO_IMAGE}
-            alt="Kompleks hunian modern SOLProperty"
-            referrerPolicy="no-referrer"
-            onError={() => setHeroError(true)}
-            className="absolute inset-0 w-full h-full object-cover opacity-50"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#1D4ED8]/40" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/75 to-[#0F172A]/45" />
-
-        {/* Brand Header */}
-        <div className="relative z-10 px-8 pt-8 lg:px-12 lg:pt-10 flex items-center justify-between">
-          <div className="flex items-center gap-3.5">
-            <BrandMark size={42} className="shrink-0 shadow-md" />
+    <div className="min-h-screen flex flex-col bg-white text-[#111827]">
+      {/* Clean SOL Agency Style Top Navigation Header */}
+      <header className="w-full bg-white border-b border-[#EFE7E2]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-8">
+          <div className="flex items-center gap-3 shrink-0">
+            <BrandMark size={40} className="drop-shadow-[0_2px_6px_rgba(217,43,34,0.16)]" />
             <div>
-              <div className="flex items-baseline gap-2.5">
-                <span className="text-xl font-bold tracking-tight text-white">SOLProperty</span>
-                <span className="text-xs font-medium text-blue-300 tracking-wide">
-                  Property Operations
-                </span>
+              <div className="text-base font-extrabold tracking-tight text-[#111827] leading-none">
+                SOL<span className="text-[#D92B22]">Property</span>
               </div>
-              <p className="text-xs text-slate-300 font-mono">solproperty.solagency.id</p>
+              <div className="text-[11px] text-slate-500 mt-0.5">
+                PT Solusi Optima Laju · solproperty.solagency.id
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Core Value Statement */}
-        <div className="relative z-10 px-8 py-10 lg:px-12 lg:py-14 max-w-2xl">
-          <p className="text-xs font-medium text-blue-300 mb-3">
-            Sistem Operasional Kos Eksklusif · Apartemen · Properti Sewa
-          </p>
-          <h1
-            className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight"
-            style={{ textWrap: 'balance' }}
+          <div className="hidden sm:flex items-center gap-6 text-xs font-medium text-slate-600">
+            <span className="text-[#D92B22] font-semibold border-b-2 border-[#D92B22] py-1">
+              Property Operations
+            </span>
+            <span>Kos Eksklusif</span>
+            <span>Apartemen</span>
+            <span>Kontrakan & Komersial</span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => handleDemoFill('admin')}
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#D92B22] hover:bg-[#B91C1C] rounded-full transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-sm"
           >
-            Kelola Properti Anda Lebih Mudah, Efisien dan Profesional
-          </h1>
-          <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-            Satukan pemantauan okupansi kamar, kontrak penghuni, penagihan sewa otomatis via WhatsApp, serta
-            tiket pemeliharaan unit dalam satu pusat kendali operasional.
-          </p>
-
-          {/* Role Architecture Overview (Clean Hairline Grid, No Nested Boxes) */}
-          <div className="mt-10 pt-8 border-t border-white/15 grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-white">
-                <ShieldCheck className="w-4 h-4 text-blue-400 shrink-0" />
-                <span>Portal Pemilik & Manajer</span>
-              </div>
-              <p className="mt-1.5 text-xs text-slate-300 leading-relaxed">
-                Analitik pendapatan & okupansi real-time, kelola multi-properti, onboarding penyewa, verifikasi
-                pembayaran, dan ekspor laporan keuangan.
-              </p>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-white">
-                <UserCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Portal Mandiri Penghuni</span>
-              </div>
-              <p className="mt-1.5 text-xs text-slate-300 leading-relaxed">
-                Pantau detail kamar & kontrak aktif, cek rincian tagihan bulanan, unggah bukti transfer sewa,
-                dan ajukan laporan perbaikan kamar.
-              </p>
-            </div>
-          </div>
+            <span>Akses Demo Admin</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
+      </header>
 
-        {/* Quiet Footer */}
-        <div className="relative z-10 px-8 pb-7 lg:px-12 flex items-center justify-between text-xs text-slate-400">
-          <span>© 2026 SOLProperty · PT SOL Property Nusantara</span>
-          <span className="hidden sm:inline">Jakarta & Depok Operations</span>
-        </div>
-      </div>
-
-      {/* Right Authentication Form Column */}
-      <div className="lg:col-span-5 flex items-center justify-center p-6 sm:p-10 lg:p-14 bg-[#F8FAFC]">
-        <div className="w-full max-w-md">
-          <div className="mb-8">
-            <div className="flex items-center gap-2 text-xs font-medium text-blue-700 mb-2">
-              <Building2 className="w-4 h-4" />
-              <span>Akses Terotentikasi Berbasis Peran</span>
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Masuk ke SOLProperty</h2>
-            <p className="text-sm text-slate-500 mt-1.5">
-              Masukkan kredensial akun Pemilik/Admin atau Penghuni untuk membuka ruang kerja Anda.
-            </p>
-          </div>
-
-          <form
-            onSubmit={handleSubmit}
-            className="bg-white border border-slate-200 rounded-xl p-6 sm:p-7 space-y-5"
-          >
-            {error && (
-              <div
-                role="alert"
-                className="flex items-start gap-2.5 p-3.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs leading-relaxed"
+      {/* Main Split Hero + Login Form matching SOL Agency Airy Warm Aesthetic */}
+      <main className="flex-1 sol-hero-glow">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10 lg:py-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Left Editorial Hero Column */}
+          <div className="lg:col-span-7 space-y-6">
+            <div>
+              <p className="text-xs font-bold tracking-[0.08em] uppercase text-[#D92B22] mb-2">
+                Full-Service Property Operations
+              </p>
+              <p className="text-sm font-semibold text-[#111827] mb-2">SOLProperty by SOL Agency</p>
+              <h1
+                className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#111827] leading-[1.14]"
+                style={{ textWrap: 'balance' }}
               >
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-                <span>{error}</span>
-              </div>
-            )}
+                Kelola Properti Anda{' '}
+                <span className="text-[#D92B22]">Lebih Mudah, Efisien &amp; Profesional</span>
+              </h1>
+              <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+                Platform operasional terpadu untuk mengelola kos eksklusif, apartemen, dan properti sewa—dari
+                okupansi kamar, kontrak penyewa, pengingat tagihan WhatsApp, hingga pelaporan keuangan.
+              </p>
+            </div>
 
-            <div>
-              <label htmlFor="login-username" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Username
-              </label>
-              <div className="relative">
-                <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  id="login-username"
-                  type="text"
-                  autoComplete="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Contoh: admin01 atau user01"
-                  required
-                  className="w-full pl-10 pr-4 py-2.5 text-sm text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-colors"
-                />
+            {/* Architectural Showcase Card with Subtle Warm Rim */}
+            <div className="relative rounded-2xl overflow-hidden border border-[#EFE7E2] bg-white shadow-[0_14px_40px_rgba(17,24,39,0.06)] max-w-2xl">
+              <div className="aspect-[16/8.5] relative bg-[#FDF6F0]">
+                {!heroError ? (
+                  <img
+                    src={LOGIN_HERO_IMAGE}
+                    alt="Kompleks hunian modern SOLProperty"
+                    referrerPolicy="no-referrer"
+                    onError={() => setHeroError(true)}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full sol-gradient-banner flex items-center justify-center text-white">
+                    <Building2 className="w-10 h-10" />
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/75 via-[#111827]/20 to-transparent" />
+                <div className="absolute bottom-4 left-5 right-5 flex flex-wrap items-end justify-between gap-2 text-white">
+                  <div>
+                    <div className="text-xs font-semibold text-[#FDE047]">Portofolio Terkelola</div>
+                    <div className="text-sm font-bold">
+                      SOL Residence Depok · SOL Kost Margonda · SOL Apartment Jakarta
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono text-white/90">IDR Ledger Ready</span>
+                </div>
               </div>
             </div>
 
-            <div>
-              <label htmlFor="login-password" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Kata Sandi
-              </label>
-              <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  id="login-password"
-                  type={showPassword ? 'text' : 'password'}
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Masukkan kata sandi"
-                  required
-                  className="w-full pl-10 pr-10 py-2.5 text-sm text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-colors"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-700 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-                  aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+            {/* Dual Role Capabilities (Clean Hairline Layout) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 max-w-2xl">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#FEF2F0] border border-[#FADAD4] flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-4 h-4 text-[#D92B22]" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-[#111827]">Portal Pemilik &amp; Manajer</h3>
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                    Analitik okupansi &amp; kas masuk, manajemen properti/kamar, verifikasi bayar, dan laporan CSV/cetak.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#FEF2F0] border border-[#FADAD4] flex items-center justify-center shrink-0">
+                  <UserCheck className="w-4 h-4 text-[#EA580C]" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-[#111827]">Portal Mandiri Penghuni</h3>
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                    Cek detail kamar &amp; kontrak aktif, tagihan bulanan pribadi, kirim bukti transfer, dan lapor perbaikan.
+                  </p>
+                </div>
               </div>
             </div>
+          </div>
 
-            <button
-              type="submit"
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-            >
-              <span>Masuk ke Portal</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <div className="pt-4 border-t border-slate-100">
-              <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 mb-3">
-                <KeyRound className="w-3.5 h-3.5 text-slate-400" />
-                <span>Isi Otomatis Akun Demo</span>
+          {/* Right Authentication Card Column */}
+          <div className="lg:col-span-5">
+            <div className="bg-white border border-[#EFE7E2] rounded-2xl p-6 sm:p-8 shadow-[0_18px_48px_rgba(17,24,39,0.07)]">
+              <div className="mb-6">
+                <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#D92B22]">
+                  Akses Terotentikasi
+                </span>
+                <h2 className="text-2xl font-extrabold text-[#111827] tracking-tight mt-1">
+                  Masuk ke SOLProperty
+                </h2>
+                <p className="text-xs text-slate-500 mt-1">
+                  Masukkan akun Pemilik/Admin atau Penghuni untuk membuka ruang kerja Anda.
+                </p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {error && (
+                  <div
+                    role="alert"
+                    className="flex items-start gap-2.5 p-3.5 rounded-xl bg-[#FEF2F0] border border-[#F8C9C3] text-[#991B1B] text-xs leading-relaxed"
+                  >
+                    <AlertCircle className="w-4 h-4 text-[#D92B22] shrink-0 mt-0.5" />
+                    <span>{error}</span>
+                  </div>
+                )}
+
+                <div>
+                  <label htmlFor="login-username" className="block text-xs font-semibold text-[#111827] mb-1.5">
+                    Username
+                  </label>
+                  <div className="relative">
+                    <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <input
+                      id="login-username"
+                      type="text"
+                      autoComplete="username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      placeholder="Contoh: admin01 atau user01"
+                      required
+                      className="w-full pl-10 pr-4 py-2.5 text-sm text-[#111827] bg-white border border-[#E5DDD8] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D92B22]/20 focus:border-[#D92B22] transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="login-password" className="block text-xs font-semibold text-[#111827] mb-1.5">
+                    Kata Sandi
+                  </label>
+                  <div className="relative">
+                    <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <input
+                      id="login-password"
+                      type={showPassword ? 'text' : 'password'}
+                      autoComplete="current-password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Masukkan kata sandi"
+                      required
+                      className="w-full pl-10 pr-10 py-2.5 text-sm text-[#111827] bg-white border border-[#E5DDD8] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D92B22]/20 focus:border-[#D92B22] transition-colors"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-[#111827] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D92B22]"
+                      aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
                 <button
-                  type="button"
-                  onClick={() => handleDemoFill('tenant')}
-                  className="flex flex-col items-start px-3.5 py-2.5 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50/50 text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                  type="submit"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 px-5 bg-[#D92B22] hover:bg-[#B91C1C] text-white text-sm font-semibold rounded-full transition-colors cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D92B22] focus-visible:ring-offset-2"
                 >
-                  <span className="text-xs font-semibold text-slate-900">
-                    Demo Fill Tenant (user01)
-                  </span>
-                  <span className="text-[11px] text-slate-500 font-mono mt-0.5">
-                    user01 · User123*
-                  </span>
+                  <span>Masuk ke Portal</span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => handleDemoFill('admin')}
-                  className="flex flex-col items-start px-3.5 py-2.5 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50/50 text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-                >
-                  <span className="text-xs font-semibold text-slate-900">
-                    Demo Fill Owner/Admin (admin01)
-                  </span>
-                  <span className="text-[11px] text-slate-500 font-mono mt-0.5">
-                    admin01 · Admin123*
-                  </span>
-                </button>
-              </div>
+                <div className="pt-4 border-t border-[#F3EAE5]">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 mb-3">
+                    <KeyRound className="w-3.5 h-3.5 text-[#D92B22]" />
+                    <span>Isi Otomatis Akun Demo</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => handleDemoFill('tenant')}
+                      className="flex flex-col items-start px-3.5 py-2.5 rounded-xl border border-[#E8D8D2] hover:border-[#D92B22] hover:bg-[#FEF2F0]/70 text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D92B22]"
+                    >
+                      <span className="text-xs font-bold text-[#111827]">
+                        Demo Fill Tenant (user01)
+                      </span>
+                      <span className="text-[11px] text-slate-500 font-mono mt-0.5">
+                        user01 · User123*
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleDemoFill('admin')}
+                      className="flex flex-col items-start px-3.5 py-2.5 rounded-xl border border-[#D92B22]/35 bg-[#FEF2F0]/40 hover:border-[#D92B22] hover:bg-[#FEF2F0] text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D92B22]"
+                    >
+                      <span className="text-xs font-bold text-[#D92B22]">
+                        Demo Fill Owner/Admin (admin01)
+                      </span>
+                      <span className="text-[11px] text-slate-600 font-mono mt-0.5">
+                        admin01 · Admin123*
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <p className="mt-5 text-[11px] text-slate-500 leading-relaxed">
+                Isolasi hak akses aktif: akun Penghuni (<span className="font-mono">user01</span>) hanya dapat
+                melihat kamar, tagihan, dan laporan perbaikan miliknya sendiri.
+              </p>
             </div>
-          </form>
-
-          <p className="mt-5 text-xs text-slate-500 leading-relaxed">
-            Hak akses dipisahkan secara ketat: akun Penghuni (<span className="font-mono">user01</span>) hanya
-            dapat mengakses data kamar, tagihan, dan komplain miliknya sendiri.
-          </p>
+          </div>
         </div>
-      </div>
+      </main>
+
+      {/* Signature SOL Agency Warm Blush Metrics Strip */}
+      <section className="bg-[#FDF6F0] border-y border-[#F3E6DD]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-extrabold text-[#D92B22] tabular-nums">3</span>
+            <span className="text-xs text-slate-600 leading-snug">Lokasi Properti Aktif di Jakarta &amp; Depok</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-extrabold text-[#D92B22] tabular-nums">18</span>
+            <span className="text-xs text-slate-600 leading-snug">Unit Kamar &amp; Suite Terpantau Real-Time</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-extrabold text-[#D92B22] tabular-nums">1-Klik</span>
+            <span className="text-xs text-slate-600 leading-snug">Pengingat Tagihan Otomatis via WhatsApp</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-extrabold text-[#D92B22] tabular-nums">100%</span>
+            <span className="text-xs text-slate-600 leading-snug">Pemisahan Akses Pemilik &amp; Penghuni</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Quiet SOL Footer */}
+      <footer className="bg-white py-5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+          <span>© 2026 SOLProperty · PT Solusi Optima Laju (SOL Agency)</span>
+          <span className="font-mono">Jakarta &amp; Depok, Indonesia · solproperty.solagency.id</span>
+        </div>
+      </footer>
     </div>
   );
 }
