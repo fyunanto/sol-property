@@ -31,10 +31,14 @@ export function PropertiesModule({
   onDeleteProperty,
   onSelectPropertyRooms,
 }: PropertiesModuleProps) {
+  const [typeFilter, setTypeFilter] = useState<PropertyType | 'ALL'>('ALL');
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProperty, setEditingProperty] = useState<Property | null>(null);
   const [brokenImages, setBrokenImages] = useState<Record<string, boolean>>({});
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+
+  const filteredProperties =
+    typeFilter === 'ALL' ? properties : properties.filter((p) => p.type === typeFilter);
 
   // Form states
   const [name, setName] = useState('');
@@ -126,7 +130,7 @@ export function PropertiesModule({
             Manajemen <span className="text-[#D92B22]">Properti</span>
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Kelola portofolio lokasi kos eksklusif, apartemen, kontrakan, serta fasilitas tiap bangunan
+            Kelola portofolio lokasi kos eksklusif, apartemen, kontrakan, komersial, villa, hingga hotel
           </p>
         </div>
         <button
@@ -139,9 +143,48 @@ export function PropertiesModule({
         </button>
       </div>
 
+      {/* Category Filter Tabs */}
+      <div className="bg-white border border-[#EFE7E2] rounded-2xl p-3 flex flex-wrap items-center gap-1.5">
+        {(['ALL', 'Kos Eksklusif', 'Apartemen', 'Kontrakan', 'Komersial', 'Villa', 'Hotel'] as const).map(
+          (cat) => {
+            const active = typeFilter === cat;
+            const count =
+              cat === 'ALL' ? properties.length : properties.filter((p) => p.type === cat).length;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setTypeFilter(cat)}
+                className={`px-3.5 py-1.5 text-xs font-semibold rounded-full transition-colors whitespace-nowrap cursor-pointer ${
+                  active
+                    ? 'bg-[#D92B22] text-white shadow-sm'
+                    : 'text-slate-600 hover:text-[#111827] hover:bg-[#FDF6F0]'
+                }`}
+              >
+                {cat === 'ALL' ? 'Semua Kategori' : cat}{' '}
+                <span className={`font-mono ml-1 ${active ? 'text-white/85' : 'text-slate-400'}`}>
+                  {count}
+                </span>
+              </button>
+            );
+          }
+        )}
+      </div>
+
       {/* Property Portfolio Cards */}
+      {filteredProperties.length === 0 ? (
+        <div className="bg-white border border-[#EFE7E2] rounded-2xl p-12 text-center">
+          <Building2 className="w-9 h-9 text-slate-300 mx-auto mb-3" />
+          <h3 className="text-sm font-bold text-[#111827]">
+            Belum ada properti pada kategori {typeFilter}
+          </h3>
+          <p className="text-xs text-slate-500 mt-1">
+            Klik &ldquo;Tambah Properti&rdquo; untuk mendaftarkan lokasi {typeFilter} baru.
+          </p>
+        </div>
+      ) : (
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {properties.map((prop) => {
+        {filteredProperties.map((prop) => {
           const propRooms = rooms.filter((r) => r.propertyId === prop.id);
           const occupied = propRooms.filter((r) => r.status === 'Terisi').length;
           const vacant = propRooms.filter((r) => r.status === 'Tersedia').length;
@@ -267,6 +310,7 @@ export function PropertiesModule({
           );
         })}
       </div>
+      )}
 
       {/* Add / Edit Property Modal */}
       <Modal
@@ -308,12 +352,14 @@ export function PropertiesModule({
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as PropertyType)}
-                className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#D92B22]/20 focus:border-[#D92B22]"
               >
                 <option value="Kos Eksklusif">Kos Eksklusif</option>
                 <option value="Apartemen">Apartemen</option>
                 <option value="Kontrakan">Kontrakan</option>
                 <option value="Komersial">Komersial</option>
+                <option value="Villa">Villa</option>
+                <option value="Hotel">Hotel</option>
               </select>
             </div>
             <div>

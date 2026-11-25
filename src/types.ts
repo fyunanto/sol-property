@@ -14,7 +14,13 @@ export interface UserAccount {
   lastLogin: string;
 }
 
-export type PropertyType = 'Kos Eksklusif' | 'Apartemen' | 'Kontrakan' | 'Komersial';
+export type PropertyType =
+  | 'Kos Eksklusif'
+  | 'Apartemen'
+  | 'Kontrakan'
+  | 'Komersial'
+  | 'Villa'
+  | 'Hotel';
 
 export interface Property {
   id: string;
